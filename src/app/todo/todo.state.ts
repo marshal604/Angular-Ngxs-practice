@@ -45,7 +45,7 @@ export interface TodoStateModel {
 @State<TodoStateModel>({
   name: 'todos',
   defaults: {
-    todoData: []
+    todoData: [new TodoItem('睡到中午')]
   }
 })
 
@@ -66,19 +66,15 @@ export class TodoState {
   removeTodo({getState, setState}: StateContext<TodoStateModel>, {payload}: REMOVETODO) {
     const state = getState();
     // 刪除一個TodoItem
-    setState({
-      ...state,
-      todoData: state.todoData.splice(payload, 1)
-    });
+    state.todoData.splice(payload, 1);
+    setState(state);
   }
 
   @Action(CHANGETODO)
   changeToDo({getState, setState}: StateContext<TodoStateModel>, {payload}: CHANGETODO) {
     const state = getState();
     // 更新一個TodoItem
-    setState({
-      ...state,
-      todoData: state.todoData.splice(payload.index, 1, payload.something)
-    });
+    state.todoData.splice(payload.index, 1, payload.something);
+    setState(state);
   }
 }

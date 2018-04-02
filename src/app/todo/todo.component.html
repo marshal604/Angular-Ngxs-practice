@@ -1,3 +1,18 @@
-<p>
-  todo works!
-</p>
+<main>
+  <div class="top-tool">
+    <mat-form-field floatLabel="always">
+      <input type="text" name="note" #note matInput placeholder="輸入你要記事的項目">
+    </mat-form-field>
+    <button mat-button color="primary" (click)="addTodo(note)">送出</button>
+  </div>
+  <mat-list>
+    <h3>代辦項目：</h3>
+    <mat-list-item *ngFor="let item of todoList| async; let i = index">
+      <img src="../../favicon.ico" alt="icon" matListAvatar />
+      <div matLine>{{item.something}}</div>
+      <button mat-icon-button (click)="openEditDialog(i, item.something)"><mat-icon>edit</mat-icon></button>
+      <button mat-icon-button (click)="removeTodo(i)"><mat-icon>delete</mat-icon></button>
+    </mat-list-item>
+  </mat-list>
+
+</main>
