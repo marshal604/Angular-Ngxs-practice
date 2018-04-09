@@ -1,4 +1,4 @@
-import {Action, State, StateContext} from '@ngxs/store';
+import { Action, State, StateContext } from '@ngxs/store';
 
 /**** 定義Model ****/
 export class TodoItem {
@@ -53,7 +53,7 @@ export class TodoState {
 
   /**** 定義狀態要怎麼改變 ****/
   @Action(ADDTODO)
-  addTodo({getState, setState}: StateContext<TodoStateModel>, {payload}: ADDTODO) {
+  addTodo({ getState, setState }: StateContext<TodoStateModel>, { payload }: ADDTODO) {
     const state = getState();
     // 加入一個新的TodoItem
     setState({
@@ -63,18 +63,20 @@ export class TodoState {
   }
 
   @Action(REMOVETODO)
-  removeTodo({getState, setState}: StateContext<TodoStateModel>, {payload}: REMOVETODO) {
+  removeTodo({ getState, setState }: StateContext<TodoStateModel>, { payload }: REMOVETODO) {
     const state = getState();
+    const todoData = state.todoData.slice();
     // 刪除一個TodoItem
-    state.todoData.splice(payload, 1);
-    setState(state);
+    todoData.splice(payload, 1);
+    setState({ ...state, todoData });
   }
 
   @Action(CHANGETODO)
-  changeToDo({getState, setState}: StateContext<TodoStateModel>, {payload}: CHANGETODO) {
+  changeToDo({ getState, setState }: StateContext<TodoStateModel>, { payload }: CHANGETODO) {
     const state = getState();
+    const todoData = state.todoData.slice();
     // 更新一個TodoItem
-    state.todoData.splice(payload.index, 1, payload.something);
-    setState(state);
+    todoData.splice(payload.index, 1, payload.something);
+    setState({ ...state, todoData });
   }
 }
